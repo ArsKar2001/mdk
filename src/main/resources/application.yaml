@@ -1,0 +1,5 @@
+spring:
+  app:
+    title: "MDK App"
+  main:
+    web-application-type: none

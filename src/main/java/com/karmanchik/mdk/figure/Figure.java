@@ -1,10 +1,30 @@
 package com.karmanchik.mdk.figure;
 
-import javafx.scene.shape.MeshView;
-import javafx.scene.shape.TriangleMesh;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.*;
 
-public class Pyramid {
-    public static MeshView create(float height, float hypotenuse) {
+public class Figure {
+    private static final PhongMaterial GREEN_MATERIAL = new PhongMaterial(Color.GREEN);
+    private static final PhongMaterial RED_MATERIAL = new PhongMaterial(Color.RED);
+    private static final PhongMaterial BLUE_MATERIAL = new PhongMaterial(Color.BLUE);
+    private static final PhongMaterial YELLOW_MATERIAL = new PhongMaterial(Color.YELLOW);
+
+    private Figure() { }
+
+    public static Shape3D createBox(int height, int width, double depth) {
+        Box box = new Box(width, height, depth);
+        box.setMaterial(GREEN_MATERIAL);
+        return box;
+    }
+
+    public static Shape3D createSphere(int radius) {
+        Sphere sphere = new Sphere(radius);
+        sphere.setMaterial(RED_MATERIAL);
+        return sphere;
+    }
+
+    public static Shape3D createPyramid(float height, float hypotenuse) {
         TriangleMesh colouredPyramid = new TriangleMesh();
         colouredPyramid.getPoints().addAll(0, 0, 0); //0-index:: top
         colouredPyramid.getPoints().addAll(0, height, -hypotenuse / 2); //1-index:: x=0, z=-hyp/2 ==> Closest to user
@@ -29,5 +49,11 @@ public class Pyramid {
         colouredPyramid.getFaces().addAll(4, 0, 3, 0, 1, 0); //Base: right triangle face ---> ORANGE
 
         return new MeshView(colouredPyramid);
+    }
+
+    public static Shape3D createCylinder(int radius, int height) {
+        Cylinder cylinder = new Cylinder(radius, height);
+        cylinder.setMaterial(YELLOW_MATERIAL);
+        return cylinder;
     }
 }

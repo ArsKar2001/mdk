@@ -1,6 +1,6 @@
 package com.karmanchik.mdk;
 
-import com.karmanchik.mdk.figure.Pyramid;
+import com.karmanchik.mdk.figure.Figure;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
@@ -12,7 +12,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
@@ -23,6 +22,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import static com.karmanchik.mdk.JavaFxApplication.StageReadyEvent;
+import static com.karmanchik.mdk.figure.Figure.*;
 
 @Log4j2
 @Component
@@ -54,11 +54,6 @@ public class StageInitialize implements ApplicationListener<StageReadyEvent> {
         try {
             Stage stage = event.getStage();
 
-            PhongMaterial greenMaterial = new PhongMaterial(Color.GREEN);
-            PhongMaterial blueMaterial = new PhongMaterial(Color.BLUE);
-            PhongMaterial redMaterial = new PhongMaterial(Color.RED);
-            PhongMaterial bluevioletMaterial = new PhongMaterial(Color.BLUEVIOLET);
-
             VBox vBox = new VBox();
             ComboBox<String> cbFigure = new ComboBox<>();
             SmartGroup group = new SmartGroup();
@@ -71,20 +66,16 @@ public class StageInitialize implements ApplicationListener<StageReadyEvent> {
             cbFigure.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
                 switch (newValue.intValue()) {
                     case 0:
-                        selectFigure = new Box(600, 500, 300);
-                        selectFigure.setMaterial(greenMaterial);
+                        selectFigure = createBox(600, 500, 300);
                         break;
                     case 1:
-                        selectFigure = new Sphere(500);
-                        selectFigure.setMaterial(blueMaterial);
+                        selectFigure = createSphere(500);
                         break;
                     case 2:
-                        selectFigure = Pyramid.create(500, 600);
-                        selectFigure.setMaterial(redMaterial);
+                        selectFigure = createPyramid(500, 600);
                         break;
                     case 3:
-                        selectFigure = new Cylinder(200, 500);
-                        selectFigure.setMaterial(bluevioletMaterial);
+                        selectFigure = createCylinder(200, 500);
                         break;
                 }
                 group.getChildren().clear();
